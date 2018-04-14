@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import List from 'components/List';
 import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
-import RepoListItem from 'containers/RepoListItem';
+import TracksDataGrid from 'containers/TracksDataGrid';
 
-function ReposList({ loading, error, repos }) {
+
+function FoundTracksList({loading, error, foundTracks}) {
   if (loading) {
     return <List component={LoadingIndicator} />;
   }
@@ -18,17 +19,17 @@ function ReposList({ loading, error, repos }) {
     return <List component={ErrorComponent} />;
   }
 
-  if (repos !== false) {
-    return <List items={repos} component={RepoListItem} />;
+  if (foundTracks !== false) {
+    return <TracksDataGrid tracks={ foundTracks }/>;
   }
 
   return null;
 }
 
-ReposList.propTypes = {
+FoundTracksList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
-  repos: PropTypes.any,
+  foundTracks: PropTypes.any,
 };
 
-export default ReposList;
+export default FoundTracksList;

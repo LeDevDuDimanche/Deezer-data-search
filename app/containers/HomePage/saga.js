@@ -3,36 +3,39 @@
  */
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { LOAD_REPOS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+import { LOAD_TRACKS } from 'containers/App/constants';
+import { tracksLoaded, tracksLoadingError } from 'containers/App/actions';
 
-import request from 'utils/request';
-import { makeSelectUsername } from 'containers/HomePage/selectors';
+import { makeSelectSearchQuery } from 'containers/HomePage/selectors';
+import { makeSelectDeezerScriptLoaded } from 'containers/App/selectors';
 
-/**
- * Github repos request/response handler
- */
-export function* getRepos() {
-  // Select username from store
-  const username = yield select(makeSelectUsername());
-  const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
+function deezerApiFetch(requestURL) {
+  return new Promise((resolve) => DZ.api(requestURL, function(response) {
+    resolve(response.data);
+  }))
+}
 
+export function* getTracks() {
+  const searchedTrack = yield select(makeSelectSearchQuery());
+
+  const deezerScriptLoaded = yield select(makeSelectDeezerScriptLoaded());
+
+  if (!deezerScriptLoaded) {
+    throw Error("Try again when deezer's script will be loaded");
+  }
+
+  const requestURL = `/search/track?q=track:"${searchedTrack}"`;
   try {
-    // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL);
-    yield put(reposLoaded(repos, username));
+    const tracks = yield call(deezerApiFetch, requestURL);
+    console.log("FOUND TRACKS = ", tracks);
+    yield put(tracksLoaded(tracks, searchedTrack));
   } catch (err) {
-    yield put(repoLoadingError(err));
+    console.error(err);
+    yield put(tracksLoadingError(err));
   }
 }
 
-/**
- * Root saga manages watcher lifecycle
- */
-export default function* githubData() {
-  // Watches for LOAD_REPOS actions and calls getRepos when one comes in.
-  // By using `takeLatest` only the result of the latest API call is applied.
-  // It returns task descriptor (just like fork) so we can continue execution
-  // It will be cancelled automatically on component unmount
-  yield takeLatest(LOAD_REPOS, getRepos);
+/*start getTracks on each dispatched action of type LOAD_TRACKS*/
+export default function* fetchTracks() {
+  yield takeLatest(LOAD_TRACKS, getTracks)
 }

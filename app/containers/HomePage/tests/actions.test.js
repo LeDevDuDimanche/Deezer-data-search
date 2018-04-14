@@ -1,5 +1,5 @@
 import {
-  CHANGE_USERNAME,
+  CHANGE_SEARCHED_TRACK,
 } from '../constants';
 
 import {
@@ -11,7 +11,7 @@ describe('Home Actions', () => {
     it('should return the correct type and the passed name', () => {
       const fixture = 'Max';
       const expectedResult = {
-        type: CHANGE_USERNAME,
+        type: CHANGE_SEARCHED_TRACK,
         name: fixture,
       };
 

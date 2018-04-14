@@ -2,10 +2,10 @@ import { fromJS } from 'immutable';
 
 import {
   selectGlobal,
-  makeSelectCurrentUser,
+  makeSelectSearchedTrack,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRepos,
+  makeSelectFoundTracks,
   makeSelectLocation,
 } from '../selectors';
 
@@ -19,8 +19,8 @@ describe('selectGlobal', () => {
   });
 });
 
-describe('makeSelectCurrentUser', () => {
-  const currentUserSelector = makeSelectCurrentUser();
+describe('makeSelectSearchedTrack', () => {
+  const currentUserSelector = makeSelectSearchedTrack();
   it('should select the current user', () => {
     const username = 'mxstbr';
     const mockedState = fromJS({
@@ -58,8 +58,8 @@ describe('makeSelectError', () => {
   });
 });
 
-describe('makeSelectRepos', () => {
-  const reposSelector = makeSelectRepos();
+describe('makeSelectFoundTracks', () => {
+  const reposSelector = makeSelectFoundTracks();
   it('should select the repos', () => {
     const repositories = fromJS([]);
     const mockedState = fromJS({

@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 
 import {
   selectHome,
-  makeSelectUsername,
+  makeSelectSearchedTrack,
 } from '../selectors';
 
 describe('selectHome', () => {
@@ -17,8 +17,8 @@ describe('selectHome', () => {
   });
 });
 
-describe('makeSelectUsername', () => {
-  const usernameSelector = makeSelectUsername();
+describe('makeSelectSearchedTrack', () => {
+  const usernameSelector = makeSelectSearchedTrack();
   it('should select the username', () => {
     const username = 'mxstbr';
     const mockedState = fromJS({

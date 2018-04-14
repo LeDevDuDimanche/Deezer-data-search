@@ -9,7 +9,10 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const LOAD_REPOS = 'boilerplate/App/LOAD_REPOS';
-export const LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS';
-export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
+export const LOAD_TRACKS = 'deezer/App/LOAD_TRACKS';
+export const LOAD_TRACKS_SUCCESS = 'deezer/App/LOAD_TRACKS_SUCCESS';
+export const LOAD_TRACKS_ERROR = 'deezer/App/LOAD_TRACKS_ERROR';
+export const DEEZER_SCRIPT_LOADED = 'deezer/App/DEEZER_SCRIPT_LOADED';
+export const SORT_ROWS_SUCCESS = 'deezer/App/SORT_ROWS_SUCCESS';
+export const SORT_TRACKS = 'deezer/App/SORT_TRACKS';
 export const DEFAULT_LOCALE = 'en';

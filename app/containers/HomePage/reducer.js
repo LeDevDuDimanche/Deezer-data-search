@@ -12,21 +12,21 @@
 import { fromJS } from 'immutable';
 
 import {
-  CHANGE_USERNAME,
+  CHANGE_SEARCHED_TRACK,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  username: '',
+  searchQuery: '',
 });
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_USERNAME:
+    case CHANGE_SEARCHED_TRACK:
 
       // Delete prefixed '@' from the github username
       return state
-        .set('username', action.name.replace(/@/gi, ''));
+        .set('searchQuery', action.query.replace(/@/gi, ''));
     default:
       return state;
   }

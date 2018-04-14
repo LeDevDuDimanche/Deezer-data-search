@@ -9,7 +9,7 @@ import { IntlProvider } from 'react-intl';
 import ReposList from 'components/ReposList';
 import { HomePage, mapDispatchToProps } from '../index';
 import { changeUsername } from '../actions';
-import { loadRepos } from '../../App/actions';
+import { loadTracks } from '../../App/actions';
 
 describe('<HomePage />', () => {
   it('should render the repos list', () => {
@@ -84,11 +84,11 @@ describe('<HomePage />', () => {
         expect(result.onSubmitForm).toBeDefined();
       });
 
-      it('should dispatch loadRepos when called', () => {
+      it('should dispatch loadTracks when called', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
         result.onSubmitForm();
-        expect(dispatch).toHaveBeenCalledWith(loadRepos());
+        expect(dispatch).toHaveBeenCalledWith(loadTracks());
       });
 
       it('should preventDefault if called with event', () => {

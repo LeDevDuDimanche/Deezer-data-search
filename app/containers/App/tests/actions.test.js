@@ -1,23 +1,23 @@
 import {
-  LOAD_REPOS,
-  LOAD_REPOS_SUCCESS,
-  LOAD_REPOS_ERROR,
+  LOAD_TRACKS,
+  LOAD_TRACKS_SUCCESS,
+  LOAD_TRACKS_ERROR,
 } from '../constants';
 
 import {
-  loadRepos,
+  loadTracks,
   reposLoaded,
   repoLoadingError,
 } from '../actions';
 
 describe('App Actions', () => {
-  describe('loadRepos', () => {
+  describe('loadTracks', () => {
     it('should return the correct type', () => {
       const expectedResult = {
-        type: LOAD_REPOS,
+        type: LOAD_TRACKS,
       };
 
-      expect(loadRepos()).toEqual(expectedResult);
+      expect(loadTracks()).toEqual(expectedResult);
     });
   });
 
@@ -26,7 +26,7 @@ describe('App Actions', () => {
       const fixture = ['Test'];
       const username = 'test';
       const expectedResult = {
-        type: LOAD_REPOS_SUCCESS,
+        type: LOAD_TRACKS_SUCCESS,
         repos: fixture,
         username,
       };
@@ -41,7 +41,7 @@ describe('App Actions', () => {
         msg: 'Something went wrong!',
       };
       const expectedResult = {
-        type: LOAD_REPOS_ERROR,
+        type: LOAD_TRACKS_ERROR,
         error: fixture,
       };
 

@@ -4,7 +4,7 @@
 
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { LOAD_REPOS } from 'containers/App/constants';
+import { LOAD_TRACKS } from 'containers/App/constants';
 import { reposLoaded, repoLoadingError } from 'containers/App/actions';
 
 import githubData, { getRepos } from '../saga';
@@ -47,8 +47,8 @@ describe('getRepos Saga', () => {
 describe('githubDataSaga Saga', () => {
   const githubDataSaga = githubData();
 
-  it('should start task to watch for LOAD_REPOS action', () => {
+  it('should start task to watch for LOAD_TRACKS action', () => {
     const takeLatestDescriptor = githubDataSaga.next().value;
-    expect(takeLatestDescriptor).toEqual(takeLatest(LOAD_REPOS, getRepos));
+    expect(takeLatestDescriptor).toEqual(takeLatest(LOAD_TRACKS, getRepos));
   });
 });

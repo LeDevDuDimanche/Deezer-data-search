@@ -8,10 +8,15 @@ const selectGlobal = (state) => state.get('global');
 
 const selectRoute = (state) => state.get('route');
 
-const makeSelectCurrentUser = () => createSelector(
+const makeSelectSearchedTrack = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('currentUser')
+  (globalState) => globalState.get('searchedTrack')
 );
+
+const makeSelectDeezerScriptLoaded = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('deezerScriptLoaded')
+)
 
 const makeSelectLoading = () => createSelector(
   selectGlobal,
@@ -23,9 +28,9 @@ const makeSelectError = () => createSelector(
   (globalState) => globalState.get('error')
 );
 
-const makeSelectRepos = () => createSelector(
+const makeSelectFoundTracks = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.getIn(['userData', 'repositories'])
+  (globalState) => globalState.get('foundTracks')
 );
 
 const makeSelectLocation = () => createSelector(
@@ -35,9 +40,10 @@ const makeSelectLocation = () => createSelector(
 
 export {
   selectGlobal,
-  makeSelectCurrentUser,
+  makeSelectSearchedTrack,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRepos,
+  makeSelectDeezerScriptLoaded,
+  makeSelectFoundTracks,
   makeSelectLocation,
 };
