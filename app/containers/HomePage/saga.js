@@ -15,6 +15,16 @@ function deezerApiFetch(requestURL) {
   }))
 }
 
+function filterTracksInformations(rawTracks) {
+  return rawTracks.map(t => {
+    return {
+      id: t.id,
+      title: t.title,
+      artistName: t.artist == null ? null : t.artist.name
+    }
+  })
+}
+
 export function* getTracks() {
   const searchedTrack = yield select(makeSelectSearchQuery());
 
@@ -26,7 +36,13 @@ export function* getTracks() {
 
   const requestURL = `/search/track?q=track:"${searchedTrack}"`;
   try {
-    const tracks = yield call(deezerApiFetch, requestURL);
+    const rawTracks = yield call(deezerApiFetch, requestURL);
+
+    let tracks = []
+    if (tracks != null) {
+      tracks = filterTracksInformations(rawTracks)
+    }
+
     console.log("FOUND TRACKS = ", tracks);
     yield put(tracksLoaded(tracks, searchedTrack));
   } catch (err) {

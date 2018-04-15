@@ -23,6 +23,12 @@ class TrackList extends React.Component {
         name: 'Title',
         width: 350,
         sortable: true
+      },
+      {
+        key: 'artistName',
+        name: 'artist name',
+        width: 200,
+        sortable: true
       }
     ];
   }
