@@ -19,6 +19,8 @@ import {
   DEEZER_SCRIPT_LOADED,
   SORT_ROWS_SUCCESS,
   SORT_TRACKS,
+  LOAD_NEXT_PAGE_SUCCESS,
+  STORE_NEXT_PAGE_URL,
 } from './constants';
 
 // The initial state of the App
@@ -27,7 +29,8 @@ const initialState = fromJS({
   error: false,
   searchedTrack: false,
   foundTracks: false,
-  deezerScriptLoaded: false
+  deezerScriptLoaded: false,
+  nextPageURL: false,
 });
 
 function appReducer(state = initialState, action) {
@@ -36,22 +39,30 @@ function appReducer(state = initialState, action) {
     case DEEZER_SCRIPT_LOADED:
       return state
         .set('deezerScriptLoaded', true)
+    case STORE_NEXT_PAGE_URL:
+      return state
+        .set('nextPageURL', action.nextPageURL)
     case LOAD_TRACKS:
       return state
         .set('loading', true)
         .set('error', false)
-        .set('foundTracks', false);
+        .set('foundTracks', false)
+        .set('nextPageURL', initialState.nextPageURL);
     case SORT_TRACKS:
-      return state.set('loading', true)
+      return state.set('loading', true);
+    case LOAD_NEXT_PAGE_SUCCESS:
+      return state
+        .set('foundTracks', state.foundTracks.concat(action.nextTracks));
     case SORT_ROWS_SUCCESS:
       return state
         .set('foundTracks', action.sortedRows)
-        .set('loading', false)
+        .set('loading', false);
     case LOAD_TRACKS_SUCCESS:
       return state
         .set('foundTracks', action.tracks)
         .set('loading', false)
-        .set('searchedTrack', action.searchedTrack);
+        .set('searchedTrack', action.searchedTrack)
+        .set('nextPageIndex', action.nextPageIndex);
     case LOAD_TRACKS_ERROR:
       return state
         .set('error', action.error)

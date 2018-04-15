@@ -18,6 +18,16 @@ const makeSelectDeezerScriptLoaded = () => createSelector(
   (globalState) => globalState.get('deezerScriptLoaded')
 )
 
+export const makeSelectNextPageURL = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('nextPageURL')
+)
+
+const makeSelectNextPageIndex = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('nextPageIndex')
+)
+
 const makeSelectLoading = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get('loading')

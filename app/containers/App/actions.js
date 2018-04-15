@@ -20,12 +20,28 @@ import {
   LOAD_TRACKS_SUCCESS,
   LOAD_TRACKS_ERROR,
   DEEZER_SCRIPT_LOADED,
+  STORE_NEXT_PAGE_URL,
+  LOAD_NEXT_PAGE_SUCCESS,
 } from './constants';
+
+export function storeNextPage(nextPageURL) {
+  return {
+    type: STORE_NEXT_PAGE_URL,
+    nextPageURL: nextPageURL,
+  }
+}
 
 export function loadTracks() {
   return {
     type: LOAD_TRACKS,
   };
+}
+
+export function nextPageLoaded(nextTracks) {
+  return {
+    type: LOAD_NEXT_PAGE_SUCCESS,
+    nextTracks: nextTracks,
+  }
 }
 
 export function deezerScriptLoaded() {

@@ -9,7 +9,10 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
+export const STORE_NEXT_PAGE_URL = 'deezer/App/STORE_NEXT_PAGE_URL';
 export const LOAD_TRACKS = 'deezer/App/LOAD_TRACKS';
+export const LOAD_NEXT_PAGE = 'deezer/App/LOAD_NEXT_PAGE';
+export const LOAD_NEXT_PAGE_SUCCESS = 'deezer/App/LOAD_NEXT_PAGE_SUCCESS';
 export const LOAD_TRACKS_SUCCESS = 'deezer/App/LOAD_TRACKS_SUCCESS';
 export const LOAD_TRACKS_ERROR = 'deezer/App/LOAD_TRACKS_ERROR';
 export const DEEZER_SCRIPT_LOADED = 'deezer/App/DEEZER_SCRIPT_LOADED';
