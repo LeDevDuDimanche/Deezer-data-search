@@ -47,11 +47,9 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
         >
           <meta name="description" content="A React.js Boilerplate application" />
         </Helmet>
-        <Header />
         <div id="dz-root"></div>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route path="/features" component={FeaturePage} />
           <Route path="" component={NotFoundPage} />
         </Switch>
         <Footer />

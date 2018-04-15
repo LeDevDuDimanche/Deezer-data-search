@@ -21,6 +21,7 @@ import {
   SORT_TRACKS,
   LOAD_NEXT_PAGE_SUCCESS,
   STORE_NEXT_PAGE_URL,
+  SET_NO_NEXT_PAGE,
 } from './constants';
 
 // The initial state of the App
@@ -34,7 +35,8 @@ const initialState = fromJS({
 });
 
 function appReducer(state = initialState, action) {
-  console.log(`in app reducer action type = ${action.type}`)
+  console.log(`in app reducer action:`, action)
+
   switch (action.type) {
     case DEEZER_SCRIPT_LOADED:
       return state
@@ -48,11 +50,13 @@ function appReducer(state = initialState, action) {
         .set('error', false)
         .set('foundTracks', false)
         .set('nextPageURL', initialState.nextPageURL);
+    case SET_NO_NEXT_PAGE:
+      return state.set('nextPageURL', initialState.nextPageURL);
     case SORT_TRACKS:
       return state.set('loading', true);
-    case LOAD_NEXT_PAGE_SUCCESS:
+    case LOAD_NEXT_PAGE_SUCCESS: 
       return state
-        .set('foundTracks', state.foundTracks.concat(action.nextTracks));
+        .set('foundTracks', state.get('foundTracks').concat(action.nextTracks));
     case SORT_ROWS_SUCCESS:
       return state
         .set('foundTracks', action.sortedRows)

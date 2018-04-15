@@ -22,6 +22,7 @@ import {
   DEEZER_SCRIPT_LOADED,
   STORE_NEXT_PAGE_URL,
   LOAD_NEXT_PAGE_SUCCESS,
+  SET_NO_NEXT_PAGE,
 } from './constants';
 
 export function storeNextPage(nextPageURL) {
@@ -31,18 +32,19 @@ export function storeNextPage(nextPageURL) {
   }
 }
 
+export function setNoNextPage() {
+  return {
+    type: SET_NO_NEXT_PAGE,
+  }
+}
+
 export function loadTracks() {
   return {
     type: LOAD_TRACKS,
   };
 }
 
-export function nextPageLoaded(nextTracks) {
-  return {
-    type: LOAD_NEXT_PAGE_SUCCESS,
-    nextTracks: nextTracks,
-  }
-}
+
 
 export function deezerScriptLoaded() {
   return { type: DEEZER_SCRIPT_LOADED };

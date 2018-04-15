@@ -3,7 +3,7 @@ const React = require('react');
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import {SORT_TRACKS} from 'containers/App/constants'
+import {SORT_TRACKS, LOAD_NEXT_PAGE } from 'containers/App/constants';
 import saga from './saga'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -11,6 +11,9 @@ import { compose } from 'redux';
 class TrackList extends React.Component {
   constructor(props, context) {
     super(props, context);
+
+    this.rowOffsetHeight = 0;
+
     this._columns = [
       {
         key: 'id',
@@ -33,20 +36,43 @@ class TrackList extends React.Component {
     ];
   }
 
-  rowGetter = (rows) => (i) => {
-    return rows[i];
-  };
+  createRowGetter(rows) {
+    return (i) => rows[i];
+  }
+
+  onScroll(rowsCount, trackList) {
+    return (e) => {
+      let { fetchNextPage } = trackList.props;
+
+      let halfWayVScroll = parseInt((rowsCount * trackList.rowOffsetHeight) / 3);
+      let currentVScroll = e.scrollTop;
+      //console.log(`halfWayVScroll ${halfWayVScroll}; currentVScroll ${currentVScroll}, this.rowOffsetHeight: ${trackList.rowOffsetHeight}, rowsCount: ${rowsCount}`)
+      if (currentVScroll >= halfWayVScroll) {
+          fetchNextPage();
+      }
+    }
+  }
 
   render() {
     let {tracks, handleGridSort} = this.props
-
+    const self = this;
+    const rowsCount = tracks.length
     return  (
       <ReactDataGrid
         onGridSort={handleGridSort}
         columns={this._columns}
-        rowGetter={this.rowGetter(tracks)}
-        rowsCount={tracks.length}
-        minHeight={500} />);
+        rowGetter={this.createRowGetter(tracks)}
+        rowsCount={rowsCount}
+        minHeight={500}
+        ref={(element) => {
+          if (element == null) {
+            return
+          }
+          const base = element.base;
+          base.onScroll = self.onScroll(rowsCount, self);
+          self.rowOffsetHeight = element.getRowOffsetHeight();
+        }}
+      />);
   }
 }
 
@@ -56,7 +82,10 @@ function mapDispatchToProps(dispatch) {
       type: SORT_TRACKS,
       sortColumn: sortColumn,
       sortDirection: sortDirection
-    })
+    }),
+    fetchNextPage: () => {
+      dispatch({ type: LOAD_NEXT_PAGE })
+    },
   }
 }
 

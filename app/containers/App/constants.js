@@ -19,3 +19,4 @@ export const DEEZER_SCRIPT_LOADED = 'deezer/App/DEEZER_SCRIPT_LOADED';
 export const SORT_ROWS_SUCCESS = 'deezer/App/SORT_ROWS_SUCCESS';
 export const SORT_TRACKS = 'deezer/App/SORT_TRACKS';
 export const DEFAULT_LOCALE = 'en';
+export const SET_NO_NEXT_PAGE = 'deezer/App/SET_NO_NEXT_PAGE'
