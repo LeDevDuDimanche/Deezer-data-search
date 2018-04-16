@@ -20,7 +20,8 @@ import {
   SORT_ROWS_SUCCESS,
   SORT_TRACKS,
   LOAD_NEXT_PAGE_SUCCESS,
-  STORE_NEXT_PAGE_URL,
+  LOAD_NEXT_PAGE,
+  STORE_NEXT_PAGE_INDEX,
   SET_NO_NEXT_PAGE,
 } from './constants';
 
@@ -31,32 +32,33 @@ const initialState = fromJS({
   searchedTrack: false,
   foundTracks: false,
   deezerScriptLoaded: false,
-  nextPageURL: false,
+  nextPageIndex: false,
 });
 
 function appReducer(state = initialState, action) {
-  console.log(`in app reducer action:`, action)
 
   switch (action.type) {
     case DEEZER_SCRIPT_LOADED:
       return state
         .set('deezerScriptLoaded', true)
-    case STORE_NEXT_PAGE_URL:
+    case STORE_NEXT_PAGE_INDEX:
       return state
-        .set('nextPageURL', action.nextPageURL)
+        .set('nextPageIndex', action.nextPageIndex)
     case LOAD_TRACKS:
       return state
         .set('loading', true)
         .set('error', false)
         .set('foundTracks', false)
-        .set('nextPageURL', initialState.nextPageURL);
+        .set('nextPageIndex', initialState.nextPageIndex);
     case SET_NO_NEXT_PAGE:
-      return state.set('nextPageURL', initialState.nextPageURL);
+      return state.set('nextPageIndex', initialState.nextPageIndex);
     case SORT_TRACKS:
       return state.set('loading', true);
-    case LOAD_NEXT_PAGE_SUCCESS: 
+    case LOAD_NEXT_PAGE_SUCCESS:
+      const currentFoundTracks = state.get('foundTracks')
+      console.log("SOON GONNA BE ABLE TO FETCH OTHER NEXT PAGES")
       return state
-        .set('foundTracks', state.get('foundTracks').concat(action.nextTracks));
+        .set('foundTracks', currentFoundTracks.concat(action.nextTracks))
     case SORT_ROWS_SUCCESS:
       return state
         .set('foundTracks', action.sortedRows)
@@ -66,7 +68,6 @@ function appReducer(state = initialState, action) {
         .set('foundTracks', action.tracks)
         .set('loading', false)
         .set('searchedTrack', action.searchedTrack)
-        .set('nextPageIndex', action.nextPageIndex);
     case LOAD_TRACKS_ERROR:
       return state
         .set('error', action.error)

@@ -60,9 +60,6 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             <Form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="username">
                 <FormattedMessage {...messages.trymeMessage} />
-                <AtPrefix>
-                  <FormattedMessage {...messages.trymeAtPrefix} />
-                </AtPrefix>
                 <Input
                   id="username"
                   type="text"

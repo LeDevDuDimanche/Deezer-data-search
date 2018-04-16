@@ -13,7 +13,7 @@ function filterTracksInformations(rawTracks) {
     return {
       id: t.id,
       title: t.title,
-      artistName: t.artist == null ? null : t.artist.name
+      artistName: t.artist == null ? "no informations" : t.artist.name
     }
   })
 }
@@ -30,17 +30,23 @@ export function* getTracks(requestURL) {
     const response = yield call(deezerApiFetch, requestURL);
     const rawTracks = response.data
     if (rawTracks == null) {
+      console.log("NULL RESPONSE!!!", response, requestURL)
       return
     }
 
     const nextPageURL = response.next;
+
     if (nextPageURL != null && nextPageURL.length > 0) {
-      yield put(storeNextPage(nextPageURL))
+      const nextPageIndexMatch = nextPageURL.match(/.*index=(\d+)/)
+      if (nextPageIndexMatch != null) {
+        const nextIndex = parseInt(nextPageIndexMatch[1])
+        yield put(storeNextPage(nextIndex))
+      }
     } else {
       yield put(setNoNextPage())
     }
 
-    const tracks = yield call(filterTracksInformations, rawTracks)
+    const tracks = yield call(filterTracksInformations, rawTracks);
     return tracks
   } catch (err) {
     console.error(err);

@@ -25,28 +25,29 @@ class TrackList extends React.Component {
         key: 'title',
         name: 'Title',
         width: 350,
-        sortable: true
+        sortable: true,
+        filterable: true
       },
       {
         key: 'artistName',
         name: 'artist name',
-        width: 200,
-        sortable: true
+        width: 300,
+        sortable: true,
+        filterable: true
       }
     ];
   }
 
   createRowGetter(rows) {
-    return (i) => rows[i];
+    return (i) => rows[i]
   }
 
   onScroll(rowsCount, trackList) {
     return (e) => {
       let { fetchNextPage } = trackList.props;
 
-      let halfWayVScroll = parseInt((rowsCount * trackList.rowOffsetHeight) / 3);
+      let halfWayVScroll = parseInt((rowsCount * trackList.rowOffsetHeight) / 2 - 50);
       let currentVScroll = e.scrollTop;
-      //console.log(`halfWayVScroll ${halfWayVScroll}; currentVScroll ${currentVScroll}, this.rowOffsetHeight: ${trackList.rowOffsetHeight}, rowsCount: ${rowsCount}`)
       if (currentVScroll >= halfWayVScroll) {
           fetchNextPage();
       }
@@ -68,6 +69,7 @@ class TrackList extends React.Component {
           if (element == null) {
             return
           }
+
           const base = element.base;
           base.onScroll = self.onScroll(rowsCount, self);
           self.rowOffsetHeight = element.getRowOffsetHeight();
@@ -88,7 +90,6 @@ function mapDispatchToProps(dispatch) {
     },
   }
 }
-
 
 const withSaga = injectSaga({ key: 'dataGridSaga', saga });
 const withConnect = connect(null, mapDispatchToProps);

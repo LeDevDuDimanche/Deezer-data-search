@@ -20,15 +20,15 @@ import {
   LOAD_TRACKS_SUCCESS,
   LOAD_TRACKS_ERROR,
   DEEZER_SCRIPT_LOADED,
-  STORE_NEXT_PAGE_URL,
+  STORE_NEXT_PAGE_INDEX,
   LOAD_NEXT_PAGE_SUCCESS,
   SET_NO_NEXT_PAGE,
 } from './constants';
 
-export function storeNextPage(nextPageURL) {
+export function storeNextPage(nextPageIndex) {
   return {
-    type: STORE_NEXT_PAGE_URL,
-    nextPageURL: nextPageURL,
+    type: STORE_NEXT_PAGE_INDEX,
+    nextPageIndex: nextPageIndex,
   }
 }
 

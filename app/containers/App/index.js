@@ -52,7 +52,6 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
           <Route exact path="/" component={HomePage} />
           <Route path="" component={NotFoundPage} />
         </Switch>
-        <Footer />
       </AppWrapper>
     );
   }
