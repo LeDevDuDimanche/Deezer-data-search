@@ -38,7 +38,6 @@ function* getSortedTracks({sortColumn, sortDirection}) {
 function* getNextPage() {
   const nextPageIndex = yield select(makeSelectNextPageIndex());
   if (!nextPageIndex) {
-    console.log("no next page stored")
     return;
   }
 
@@ -54,8 +53,6 @@ export default function* rootSaga() {
 
   while (true) {
     yield take(LOAD_NEXT_PAGE)
-    console.log("AFTER LOAD NEXT PAGE")
     yield call(getNextPage)
-    console.log("AFTER getNextPage")
   }
 }

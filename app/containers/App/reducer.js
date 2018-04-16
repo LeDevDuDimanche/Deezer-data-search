@@ -56,7 +56,6 @@ function appReducer(state = initialState, action) {
       return state.set('loading', true);
     case LOAD_NEXT_PAGE_SUCCESS:
       const currentFoundTracks = state.get('foundTracks')
-      console.log("SOON GONNA BE ABLE TO FETCH OTHER NEXT PAGES")
       return state
         .set('foundTracks', currentFoundTracks.concat(action.nextTracks))
     case SORT_ROWS_SUCCESS:
