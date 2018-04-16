@@ -19,21 +19,24 @@ class TrackList extends React.Component {
         key: 'id',
         name: 'ID',
         width: 100,
-        locked: true
+        locked: true,
+        resizable: true,
       },
       {
         key: 'title',
         name: 'Title',
         width: 350,
         sortable: true,
-        filterable: true
+        filterable: true,
+        resizable: true,
       },
       {
         key: 'artistName',
         name: 'artist name',
         width: 300,
         sortable: true,
-        filterable: true
+        filterable: true,
+        resizable: true,
       }
     ];
   }
