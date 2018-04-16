@@ -1,4 +1,5 @@
 const ReactDataGrid = require('react-data-grid');
+const { Toolbar, Data: { Selectors } } = require('react-data-grid-addons');
 const React = require('react');
 
 import injectReducer from 'utils/injectReducer';
@@ -57,6 +58,14 @@ class TrackList extends React.Component {
     }
   }
 
+  handleFilterChange = (filter) => {
+    console.log("in handle filter change filter.filterTerm; filter.column.key", filter.filterTerm, filter.column.key)
+  };
+
+  onClearFilters = () => {
+    console.log("in on clear filters")
+  };
+
   render() {
     let {tracks, handleGridSort} = this.props
     const self = this;
@@ -68,6 +77,9 @@ class TrackList extends React.Component {
         rowGetter={this.createRowGetter(tracks)}
         rowsCount={rowsCount}
         minHeight={500}
+        toolbar={<Toolbar enableFilter={true}/>}
+        onAddFilter={this.handleFilterChange}
+        onClearFilters={this.onClearFilters}
         ref={(element) => {
           if (element == null) {
             return
