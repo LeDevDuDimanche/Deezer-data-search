@@ -7,7 +7,11 @@ import {
   makeSelectError,
   makeSelectFoundTracks,
   makeSelectLocation,
+  makeSelectFilteredTracks,
+  makeSelectFilters,
 } from '../selectors';
+
+import { initialState } from '../reducer';
 
 describe('selectGlobal', () => {
   it('should select the global state', () => {
@@ -59,17 +63,157 @@ describe('makeSelectError', () => {
 });
 
 describe('makeSelectFoundTracks', () => {
-  const reposSelector = makeSelectFoundTracks();
-  it('should select the repos', () => {
-    const repositories = fromJS([]);
+  const tracksSelector = makeSelectFoundTracks();
+  it('should select an empty list of tracks', () => {
+    const tracks = fromJS([]);
     const mockedState = fromJS({
       global: {
-        userData: {
-          repositories,
-        },
+        foundTracks: tracks
       },
     });
-    expect(reposSelector(mockedState)).toEqual(repositories);
+    expect(tracksSelector(mockedState)).toEqual(tracks);
+  });
+});
+
+describe('makeSelectFilter', () => {
+  const filtersSelector = makeSelectFilters();
+  it('should select an empty list of filters when no filters are in the store', () => {
+    const filters = fromJS([]);
+    const mockedState = fromJS({
+      global: {
+        foundTracks: [],
+        filters: filters
+      }
+    });
+    expect(filtersSelector(mockedState)).toEqual(filters)
+  });
+});
+
+describe('makeSelectFilteredTracks', () => {
+  const filteredTracksSelector = makeSelectFilteredTracks();
+  it('should select an empty list of tracks where no tracks or filters are in the store', () => {
+    const tracks = fromJS([]);
+    const mockedState = fromJS({
+      global: {
+        foundTracks: tracks,
+        filters: []
+      },
+    });
+    expect(filteredTracksSelector(mockedState)).toEqual(tracks);
+  });
+
+  it('should select no tracks as those tracks dont contain all filters keywords on title', () => {
+    const tracks = [
+      {
+        id: 1,
+        title: "satisfaction",
+        artistName: "Rolling Stones"
+      },
+      {
+        id: 2,
+        title: "heroes",
+        artistName: "David Bowie"
+      }
+    ];
+
+    let mockedState = fromJS({
+      global: {
+        foundTracks: false,
+        filters: [{
+          columnKey: 'title',
+          filterTerm: 'something random'
+        }]
+      }
+    });
+
+    mockedState = mockedState.setIn('global', 'foundTracks', tracks);
+
+    expect(filteredTracksSelector(mockedState)).toEqual([]);
+  });
+
+  it('should select only 2 of the 3 tracks', () => {
+    const expectedTracks = [
+      {
+        id: 1,
+        title: "what is love",
+        artistName: "Haddaway"
+      },
+      {
+        id: 2,
+        title: "what what what? love",
+        artistName: "i dont know"
+      }
+    ];
+
+    const unwantedTrack = {
+      id: 3,
+      title: "titre random",
+      artistName: "artiste random"
+    }
+
+
+
+    let mockedState = fromJS({
+      global: {
+        foundTracks: false,
+        filters: [{
+          columnKey: 'title',
+          filterTerm: 'what love'
+        }]
+      }
+    });
+    mockedState =
+      mockedState.setIn(['global', 'foundTracks'], expectedTracks.concat(unwantedTrack))
+      console.log("ONLY 2 OF 3", mockedState)
+    expect(filteredTracksSelector(mockedState)).toEqual(expectedTracks);
+  });
+
+
+  it("should chain filters correctly", () => {
+    const expectedTrack = {
+      id: 1,
+      title: "what is love",
+      artistName: "Haddaway"
+    };
+
+    const unwantedTracks = [
+      {
+        id: 2,
+        title: "Life",
+        artistName: "Haddaway"
+      },
+      {
+        id: 3,
+        title: "I'm bored",
+        artistName: "Iggy Pop"
+      }
+    ];
+
+    const filters = fromJS([
+      {
+        columnKey: 'title',
+        filterTerm: 'what love'
+      },
+      {
+        columnKey: 'title',
+        filterTerm: 'love what love love'
+      },
+      {
+        columnKey: 'artistName',
+        filterTerm: 'haddaway'
+      }
+    ]);
+
+    let mockedState = fromJS({
+      global: {
+        foundTracks: false,
+        filters: filters
+      }
+    });
+    mockedState = mockedState.setIn(['global', 'foundTracks'], unwantedTracks.concat([expectedTrack]))
+
+    expect(filteredTracksSelector(mockedState)).toEqual([expectedTrack]);
+
   });
 });
 
