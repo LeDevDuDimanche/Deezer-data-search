@@ -1,6 +1,8 @@
 # Deezer-data-search
-Deezer song search api. I used [react data grid](https://github.com/adazzle/react-data-grid) and [react boilerplate](https://github.com/react-boilerplate/react-boilerplate)(which includes react, redux, saga, reselect, i18n, jest, ...) to obtain the final result.
-The project uses [Deezer's javascript sdk](https://developers.deezer.com/sdk/javascript/api) to fetch data from deezer's api.
+Deezer song search api. I used the following tools:
+_ [react data grid](https://github.com/adazzle/react-data-grid)
+_ [react boilerplate](https://github.com/react-boilerplate/react-boilerplate)(which includes react, redux, saga, reselect, i18n, jest, ...)
+_ [Deezer's javascript sdk](https://developers.deezer.com/sdk/javascript/api) to fetch data from deezer's api.
 
 
 To run this project write the following in your terminal:
