@@ -1,5 +1,5 @@
 # Deezer-data-search
-Deezer song search api. I used react, redux, saga, reselect, [react data grid](https://github.com/adazzle/react-data-grid) and [react boilerplate](https://github.com/react-boilerplate/react-boilerplate) to obtain the final result.
+Deezer song search api. I used [react data grid](https://github.com/adazzle/react-data-grid) and [react boilerplate](https://github.com/react-boilerplate/react-boilerplate)(which includes react, redux, saga, reselect, i18n, jest, ...) to obtain the final result.
 
 As I used react boilerplate to start this project, you can look at [this page](https://github.com/react-boilerplate/react-boilerplate/blob/master/docs/general/commands.md) to see the set of npm commands used to run this project.
 
