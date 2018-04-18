@@ -13,6 +13,20 @@ import {
 
 import { initialState } from '../reducer';
 
+describe('makeSelectSearchedTrack', () => {
+  const searchedTrackSelector = makeSelectSearchedTrack();
+  it('should select the current searched track', () => {
+    const searchedTrack = 'oinqowinfdqwf';
+    const mockedState = fromJS({
+      global: {
+        searchedTrack: searchedTrack
+      },
+    });
+    expect(searchedTrackSelector(mockedState)).toEqual(searchedTrack);
+  });
+});
+
+
 describe('selectGlobal', () => {
   it('should select the global state', () => {
     const globalState = fromJS({});
@@ -23,18 +37,6 @@ describe('selectGlobal', () => {
   });
 });
 
-describe('makeSelectSearchedTrack', () => {
-  const currentUserSelector = makeSelectSearchedTrack();
-  it('should select the current user', () => {
-    const username = 'mxstbr';
-    const mockedState = fromJS({
-      global: {
-        currentUser: username,
-      },
-    });
-    expect(currentUserSelector(mockedState)).toEqual(username);
-  });
-});
 
 describe('makeSelectLoading', () => {
   const loadingSelector = makeSelectLoading();
