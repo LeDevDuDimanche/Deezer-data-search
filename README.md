@@ -12,4 +12,4 @@ To run this project write the following in your terminal:
 
 As I used react boilerplate to start this project, you can look at [this page](https://github.com/react-boilerplate/react-boilerplate/blob/master/docs/general/commands.md) to see a set of other npm commands you can run this project with.
 
-I wrote some unit tests using jests which are located in app/containers/App/tests/selectors.test.js. You can run the the test suite using *npm test*. I changed the package.json file testRegex's variable so that only the tests in this file are run.
+I wrote some unit tests using jests which are located in app/containers/App/tests/selectors.test.js. You can run the the test suite using **npm test**. I changed the package.json file testRegex's variable so that only the tests in this file are run.
