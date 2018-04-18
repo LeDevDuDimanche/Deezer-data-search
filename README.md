@@ -6,8 +6,8 @@ Application to display songtracks' informations returned by deezer's api. I used
 
 
 To run this project write the following in your terminal:
-npm install
-npm start
+1. npm install
+2. npm start
 
 Open localhost:3000 on your favorite webbrowser
 
