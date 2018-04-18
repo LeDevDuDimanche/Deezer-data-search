@@ -1,5 +1,5 @@
 # Deezer-data-search
-Deezer song search api. I used the following tools:
+Application to display songtracks' informations returned by deezer's api. I used the following tools:
 * [react data grid](https://github.com/adazzle/react-data-grid)
 * [react boilerplate](https://github.com/react-boilerplate/react-boilerplate)(which includes react, redux, saga, reselect, i18n, jest, ...)
 * [Deezer's javascript sdk](https://developers.deezer.com/sdk/javascript/api) to fetch data from deezer's api.
