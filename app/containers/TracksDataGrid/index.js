@@ -4,7 +4,7 @@ const React = require('react');
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import {SORT_TRACKS, LOAD_NEXT_PAGE } from 'containers/App/constants';
+import { SORT_TRACKS, LOAD_NEXT_PAGE, FILTER_CLEAR, FILTER_CHANGE } from 'containers/App/constants';
 import saga from './saga'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -58,16 +58,9 @@ class TrackList extends React.Component {
     }
   }
 
-  handleFilterChange = (filter) => {
-    console.log("in handle filter change filter.filterTerm; filter.column.key", filter.filterTerm, filter.column.key)
-  };
-
-  onClearFilters = () => {
-    console.log("in on clear filters")
-  };
-
   render() {
-    let {tracks, handleGridSort} = this.props
+    const { tracks, handleGridSort, handleFilterChange, handleFilterClear } = this.props
+    console.log("TRACKS IN RENDER OF TRACKS DATA GRID", tracks)
     const self = this;
     const rowsCount = tracks.length
     return  (
@@ -78,8 +71,8 @@ class TrackList extends React.Component {
         rowsCount={rowsCount}
         minHeight={500}
         toolbar={<Toolbar enableFilter={true}/>}
-        onAddFilter={this.handleFilterChange}
-        onClearFilters={this.onClearFilters}
+        onAddFilter={(filter) => handleFilterChange(filter.filterTerm, filter.column.key) }
+        onClearFilters={ handleFilterClear }
         ref={(element) => {
           if (element == null) {
             return
@@ -103,6 +96,12 @@ function mapDispatchToProps(dispatch) {
     fetchNextPage: () => {
       dispatch({ type: LOAD_NEXT_PAGE })
     },
+    handleFilterChange: (filterTerm, columnKey) => dispatch({
+        type: FILTER_CHANGE,
+        filterTerm,
+        columnKey,
+    }),
+    handleFilterClear: () => dispatch({type: FILTER_CLEAR}),
   }
 }
 

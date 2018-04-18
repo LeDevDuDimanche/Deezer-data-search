@@ -20,19 +20,21 @@ import {
   SORT_ROWS_SUCCESS,
   SORT_TRACKS,
   LOAD_NEXT_PAGE_SUCCESS,
-  LOAD_NEXT_PAGE,
   STORE_NEXT_PAGE_INDEX,
   SET_NO_NEXT_PAGE,
+  FILTER_CLEAR,
+  FILTER_CHANGE,
 } from './constants';
 
 // The initial state of the App
-const initialState = fromJS({
+export const initialState = fromJS({
   loading: false,
   error: false,
   searchedTrack: false,
   foundTracks: false,
   deezerScriptLoaded: false,
   nextPageIndex: false,
+  filters: false,
 });
 
 function appReducer(state = initialState, action) {
@@ -48,20 +50,36 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false)
-        .set('foundTracks', false)
+        .set('foundTracks', initialState.foundTracks)
         .set('nextPageIndex', initialState.nextPageIndex);
     case SET_NO_NEXT_PAGE:
       return state.set('nextPageIndex', initialState.nextPageIndex);
     case SORT_TRACKS:
       return state.set('loading', true);
     case LOAD_NEXT_PAGE_SUCCESS:
-      const currentFoundTracks = state.get('foundTracks')
+      const currentFoundTracks = state.get('foundTracks');
       return state
         .set('foundTracks', currentFoundTracks.concat(action.nextTracks))
     case SORT_ROWS_SUCCESS:
       return state
         .set('foundTracks', action.sortedRows)
         .set('loading', false);
+    case FILTER_CLEAR:
+      return state.set('filters', initialState.filters);
+    case FILTER_CHANGE:
+      const newFilter = fromJS({
+        filterTerm: action.filterTerm,
+        columnKey: action.columnKey
+      });
+      let oldFilters = state.get('filters');
+      if (!oldFilters) {
+        oldFilters = fromJS([]);
+      }
+      const newFilters = oldFilters
+        .filter(f => f.columnKey !== newFilter.columnKey)
+        .push(newFilter)
+      console.log("NEWFILTERS", newFilters)
+      return state.set('filters', newFilters);
     case LOAD_TRACKS_SUCCESS:
       return state
         .set('foundTracks', action.tracks)

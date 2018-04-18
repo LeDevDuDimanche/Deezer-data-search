@@ -14,7 +14,7 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { makeSelectFoundTracks, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+import { makeSelectFilteredTracks, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import FoundTracksList from 'components/FoundTracksList';
 import AtPrefix from './AtPrefix';
@@ -83,10 +83,6 @@ HomePage.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
-  foundTracks: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.bool,
-  ]),
   onSubmitForm: PropTypes.func,
   searchQuery: PropTypes.string,
   onChangeSearchedTrack: PropTypes.func,
@@ -103,7 +99,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  foundTracks: makeSelectFoundTracks(),
+  foundTracks: makeSelectFilteredTracks(),
   searchQuery: makeSelectSearchQuery(),
   loading: makeSelectLoading(),
   error: makeSelectError(),

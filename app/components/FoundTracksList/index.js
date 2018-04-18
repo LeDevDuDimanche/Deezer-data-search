@@ -19,7 +19,7 @@ function FoundTracksList({loading, error, foundTracks}) {
     return <List component={ErrorComponent} />;
   }
 
-  if (foundTracks !== false) {
+  if (foundTracks) {
     return <TracksDataGrid tracks={ foundTracks }/>;
   }
 

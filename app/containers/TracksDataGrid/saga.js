@@ -2,7 +2,7 @@
  * Gets the repositories of the user from Github
  */
 
- import { makeSelectNextPageIndex, makeSelectFoundTracks, makeSelectSearchedTrack } from 'containers/App/selectors';
+ import { makeSelectNextPageIndex, makeSelectFilteredTracks, makeSelectSearchedTrack } from 'containers/App/selectors';
  import { put, select, takeLatest, call, take } from 'redux-saga/effects';
  import { getTracks } from 'utils/sagaCommons'
  import { getSearchedTrackURL } from 'utils/urlCommons'
@@ -23,7 +23,7 @@ function sort(sortColumn, sortDirection, rows) {
 }
 
 function* getSortedTracks({sortColumn, sortDirection}) {
-  const foundTracks = yield select(makeSelectFoundTracks())
+  const foundTracks = yield select(makeSelectFilteredTracks())
 
   if (foundTracks == null) {
     return
