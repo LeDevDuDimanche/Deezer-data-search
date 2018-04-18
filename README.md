@@ -8,8 +8,7 @@ Application to display songtracks' informations returned by deezer's api. I used
 To run this project write the following in your terminal:
 1. npm install
 2. npm start
-
-Open localhost:3000 on your favorite webbrowser
+3. Open localhost:3000 on your favorite webbrowser
 
 As I used react boilerplate to start this project, you can look at [this page](https://github.com/react-boilerplate/react-boilerplate/blob/master/docs/general/commands.md) to see a set of other npm commands you can run this project with.
 
